@@ -110,6 +110,7 @@ GEM
       multi_json
       omniauth-openid
     orm_adapter (0.4.0)
+    pg (0.16.0)
     polyglot (0.3.3)
     pry (0.9.12.2)
       coderay (~> 1.0.5)
@@ -208,6 +209,7 @@ DEPENDENCIES
   nokogiri
   omniauth
   omniauth-steam
+  pg
   rails (= 3.2.13)
   rb-fsevent
   rspec-rails

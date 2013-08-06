@@ -19,6 +19,10 @@ html, body, div, ul, li, a {
   margin: 0;
 }
 
+ul {
+  list-style:none;
+}
+
 body {
    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
    font-weight: 300;
@@ -91,7 +95,11 @@ ul li a:active {
   color:red;
 }
 
-ul li.active a{
+ul li.active a {
     background: -webkit-gradient(radial, 50% 100%, 10, 50% 50%, 90, from(rgba(31,169,244,1)), to(rgba(0,28,78, 1)) );
     background: -moz-radial-gradient(center 80px 45deg, circle cover, rgba(31,169,244,1) 0%, rgba(0,28,78, 1) 100%);
+}
+
+#logout {
+  float:right; 
 }

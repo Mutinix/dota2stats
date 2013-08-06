@@ -9,7 +9,7 @@
 <body>
   
 <div class="wrapper">
-<div class="container"><ul class="menu" rel="sam1">
+<div class="container"><ul class="menu">
 <li class="active"><a href="#">Home</a></li>
 <li><a href="#">Fixtures</a></li>
 <li><a href="<%= roster_path %>">Roster</a></li>
@@ -17,6 +17,13 @@
 <li><a href="#">Scout</a></li>
 <li><a href="#">Community</a></li>
 </ul>
+
+<% if user_signed_in? %>
+<ul class="menu" id="logout">
+  <li><a href=" <%= destroy_user_session_path %>  ">Logout</a></li>
+</ul>
+<% end %>
+
 </div>
 </div>
   

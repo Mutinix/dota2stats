@@ -5,12 +5,19 @@
 
 <h2 class="roster-title">Roster:</h2>
 <table>
-  <th></th><th>Name:</th>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Name:</th>
+    </tr>
+  </thead>
+  <tbody>
   <% @team.players.each do |player| %>
-  <tr>
-    <td><img class="avatar" src="<%= player.avatar_url%>" ></td>
-    <td><%= player.name %></td>
-  </tr>
-  <% end %>
+    <tr>
+      <td><img class="avatar" src="<%= player.avatar_url%>" ></td>
+      <td><%= player.name %></td>
+    </tr>
+    <% end %>
+  </tbody>
 </table>
 

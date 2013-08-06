@@ -10,11 +10,15 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :name, :password, :password_confirmation, :remember_me,
                   :provider, :uid
-  # attr_accessible :title, :body
+  
+  has_one :player_team, foreign_key: :player_id
+  has_one :team, through: :player_team
   
   def self.find_for_steam_oauth(auth, signed_in_resource=nil)
     user = User.where(:uid => auth.uid).first
-    unless user
+    if user
+      user.update_attributes({name: auth.extra.raw_info.personaname})
+    else
       user = User.create(  uid:auth.uid,
                            password:Devise.friendly_token[0,20]
                            )

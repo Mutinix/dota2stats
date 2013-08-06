@@ -12,6 +12,8 @@ DotaNexus::Application.routes.draw do
   end
   
   resource :session, only: [:new]
+  resources :teams, only: [:show]
   
+  get '/roster', to: 'teams#show', as: :roster
   
 end

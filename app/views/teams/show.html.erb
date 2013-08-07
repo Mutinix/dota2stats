@@ -2,6 +2,9 @@
 <img src="<%= asset_path("flags/" + @team.country_code + ".png") %>" class="flag" >
 
 <h1 class="teamname"><%= @team.name %></h1>
+<br>
+<%= render partial: "scrim_challenges" %>
+<%= render partial: "new_scrim" %>
 
 <h2 class="roster-title">Roster:</h2>
 <table>

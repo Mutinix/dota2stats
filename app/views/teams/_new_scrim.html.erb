@@ -1,0 +1,14 @@
+<form action="" method="post" class="scrim-request">
+
+  <label>Team:
+    <select name="scrim[team]">
+      <% Team.order("LOWER(name)").each do |team| %>
+        <% next if current_user.team == team %>
+        <option><%= team.name%></option>
+      <% end %>
+    </select>
+  </label>
+  
+  <input type="submit" value="Request Scrim">
+  <input type="hidden" value="<%= form_authenticity_token %>"                            name="authenticity_token">
+</form>

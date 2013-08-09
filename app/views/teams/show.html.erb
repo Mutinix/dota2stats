@@ -3,8 +3,12 @@
 
 <h1 class="teamname"><%= @team.name %></h1>
 <br>
-<%= render partial: "scrim_challenges" %>
-<%= render partial: "new_scrim" %>
+
+<table id="scrim-challenges">
+  <%= render partial: "./scrims/scrim", collection: @scrims %>
+</table>
+
+<%= render partial: "./scrims/new_scrim" %>
 
 <h2 class="roster-title">Roster:</h2>
 <table>

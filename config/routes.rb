@@ -9,8 +9,10 @@ DotaNexus::Application.routes.draw do
     get 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
   end
   
-  resource :session, only: [:new]
   resources :teams, only: [:show]
   
   get '/roster', to: 'teams#show', as: :roster
+  
+  resources :scrims, only: [:create]
+  
 end

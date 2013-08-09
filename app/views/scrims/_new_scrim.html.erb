@@ -1,0 +1,26 @@
+<form action="<%= scrims_url %>" method="post" id="scrim-request" data-remote="true">
+
+  <label>Team:
+    <select name="scrim[team2_id]">
+      <% Team.order("LOWER(name)").each do |team| %>
+        <% next if current_user.team == team %>
+        <option value="<%= team.id %>"><%= team.name%></option>
+      <% end %>
+    </select>
+  </label>
+  
+  <input type="submit" value="Request Scrim">
+  <input type="hidden" value="<%= form_authenticity_token %>"                            name="authenticity_token">
+</form>
+
+<script>
+
+$(document).ready(function(){
+  
+  $("#scrim-request").on("ajax:success", function(event, data){
+
+    $("#scrim-challenges").append(data);
+  });
+});
+  
+</script>

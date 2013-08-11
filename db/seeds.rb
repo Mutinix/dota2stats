@@ -5,3 +5,14 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+Server.create([{name: "South East Asia"},
+               {name: "US West"},
+               {name: "US East"},
+               {name: "Europe West"},
+               {name: "Europe East"},
+               {name: "Russia"},
+               {name: "Australia"},
+               {name: "Perfect World"},
+               {name: "Nexon"},
+               ])

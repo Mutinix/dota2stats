@@ -9,8 +9,24 @@
     </select>
   </label>
   
-  <input name="scrim[date]" type="date" min="<%= Time.now.strftime('%Y-%m-%d') %>">
-  <input type="time" name="scrim[time]">
+  <br>
+  
+  <label>Date &amp; Time:
+    <input name="scrim[date]" type="date" min="<%= Time.now.strftime('%Y-%m-%d') %>">
+    <input type="time" name="scrim[time]">
+  </label>
+  
+  <br>
+  
+  <label>Server:
+    <select name="scrim[server]">
+      <% Server.order("LOWER(name)").each do |server| %>
+        <option value="<%= server.name%>"><%= server.name%></option>
+      <% end %>
+    </select>
+  </label>
+  
+  <br>
   
   <input type="submit" value="Request Scrim">
   <input type="hidden" value="<%= form_authenticity_token %>"                            name="authenticity_token">

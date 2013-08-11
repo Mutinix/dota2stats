@@ -4,7 +4,7 @@ class TeamsController < ApplicationController
   
   def show
     @team = current_user.team
-    @scrims = @team.challenges
+    @challenges = @team.challenges
   end
   
 end

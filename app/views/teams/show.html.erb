@@ -1,11 +1,34 @@
 <%= stylesheet_link_tag 'teams' %>
 <img src="<%= asset_path("flags/" + @team.country_code + ".png") %>" class="flag" >
 
-<h1 class="teamname"><%= @team.name %></h1>
+<h1 class="teamname">
+  <% if @team.url != "" %>
+    <a href="<%= @team.url %>"><%= @team.name %></a>
+  <% else %>
+    <%= @team.name %>
+  <% end %>
+</h1>
 <br>
 
-<table id="scrim-challenges">
-  <%= render partial: "./scrims/scrim", collection: @scrims %>
+Scrim Requests:
+
+<table class="scrims" id="scrim-requests">
+  <%= render partial: "./scrims/scrim", collection: @requests %>
+</table>
+
+
+Scrim Challenges:
+
+<table class="scrims" id="scrim-challenges">
+  <thead>
+    <tr>
+      <th>Team</th>
+      <th>Date & Time</th>
+      <th>Server</th>
+    </tr>
+  </thead>
+  
+  <%= render partial: "./scrims/scrim", collection: @challenges %>
 </table>
 
 <%= render partial: "./scrims/new_scrim" %>

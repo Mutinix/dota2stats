@@ -14,6 +14,9 @@ class User < ActiveRecord::Base
   has_one :player_team, foreign_key: :player_id
   has_one :team, through: :player_team
   
+  has_many :played_matches, foreign_key: :player_id, :class_name => "PlayerMatch"
+  has_many :matches, through: :played_matches
+  
   def self.find_for_steam_oauth(auth, signed_in_resource=nil)
     user = User.where(:uid => auth.uid).first
     if user

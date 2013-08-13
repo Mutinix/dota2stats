@@ -34,4 +34,13 @@ class PlayerMatch < ActiveRecord::Base
   belongs_to :match
   
   belongs_to :hero
+  
+  def is_radiant?
+    self.player_slot < 128
+  end
+  
+  def is_winner?
+    self.is_radiant? == self.match.radiant_win
+  end
+  
 end

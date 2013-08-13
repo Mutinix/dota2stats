@@ -10,6 +10,8 @@ DotaNexus::Application.routes.draw do
   end
   
   resources :teams, only: [:show]
+  resources :users, only: [:show]
+  resources :matches, only: [:show]
   
   get '/roster', to: 'teams#show', as: :roster
   

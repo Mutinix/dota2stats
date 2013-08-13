@@ -1,0 +1,49 @@
+<thead>
+  <tr>
+    <th class="player-name">Player</th>
+    <th class="hero" colspan="2">Hero</th>
+    <th class="kills">K</th>
+    <th class="deaths">D</th>
+    <th class="assists">A</th>
+    <th class="items">Items</th>
+    <th class="gold">Gold</th>
+    <th class="last-hits">Last Hits</th>
+    <th class="denies">Denies</th>
+    <th class="gpm">Gold/Min</th>
+    <th class="xpm">XP/Min</th>
+  </tr>
+</thead>
+<tbody>
+<% match.player_matches[startIndex..endIndex].each do |player| %>
+  <% u = User.find_by_id(player["player_id"]) %>
+  <tr>
+    <td>
+      <% if u %>
+        <%= u.name %>
+      <% else %>
+        Anonymous
+      <% end %>
+    </td>
+    <td>
+      <img class="hero-image" src="<%= player.hero.thumb_url %>" >
+    </td>
+    <td class="hero-name"><%= player.hero.localized_name %></td>
+    <td><%= player.kills %></td>
+    <td><%= player.deaths %></td>
+    <td><%= player.assists %></td>
+    <td>
+      <% (0..5).each do |num| %>
+        <% item_id = player["item_" + String(num)] %>
+        <img class="item" src="
+        <%= Item.find(item_id).image_url unless item_id == 0 %>
+        ">
+      <% end %>
+    </td>
+    <td><%= player.gold %></td>
+    <td><%= player.last_hits %></td>
+    <td><%= player.denies %></td>
+    <td><%= player.gold_per_min %></td>
+    <td><%= player.xp_per_min %></td>
+  </tr>
+<% end %>
+</tbody>

@@ -49,6 +49,7 @@ group :development, :test do
   gem 'spork'
   gem 'guard-rspec'
   gem "better_errors"
+  gem 'annotate'
 end
 
 group :test do

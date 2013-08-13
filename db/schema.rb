@@ -11,7 +11,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130811184729) do
+ActiveRecord::Schema.define(:version => 20130813180659) do
+
+  create_table "heros", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.text     "image_url"
+    t.string   "localized_name"
+    t.text     "thumb_url"
+  end
+
+  create_table "items", :force => true do |t|
+    t.string   "name"
+    t.text     "image_url"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "leagues", :force => true do |t|
     t.string   "name"

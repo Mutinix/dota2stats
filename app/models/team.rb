@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: teams
+#
+#  id           :integer          not null, primary key
+#  name         :string(255)
+#  tag          :string(255)
+#  country_code :string(255)
+#  url          :text
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+
 class Team < ActiveRecord::Base
   attr_accessible :country_code, :name, :tag, :url
   

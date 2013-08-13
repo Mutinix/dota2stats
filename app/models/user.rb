@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
@@ -9,7 +10,7 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :name, :password, :password_confirmation, :remember_me,
-                  :provider, :uid, :avatar_url
+                  :provider, :avatar_url
   
   has_one :player_team, foreign_key: :player_id
   has_one :team, through: :player_team
@@ -17,17 +18,27 @@ class User < ActiveRecord::Base
   has_many :played_matches, foreign_key: :player_id, :class_name => "PlayerMatch"
   has_many :matches, through: :played_matches
   
+  def self.steam_id_convert(from, id)
+    if from == 32
+      return id + 76561197960265728
+    else
+      return id - 76561197960265728
+    end
+  end
+  
   def self.find_for_steam_oauth(auth, signed_in_resource=nil)
-    user = User.where(:uid => auth.uid).first
+    uid = steam_id_convert(64, Integer(auth.uid))
+    user = User.where(:id => uid).first
     if user
       user.update_attributes({name: auth.extra.raw_info.personaname,
                               avatar_url: auth.extra.raw_info.avatarfull})
     else
-      user = User.create(  uid:auth.uid,
-                           name:auth.extra.raw_info.personaname,
-                           avatar_url: auth.extra.raw_info.avatarfull,
-                           password:Devise.friendly_token[0,20]
-                           )
+      user = User.new(  name:auth.extra.raw_info.personaname,
+                        avatar_url: auth.extra.raw_info.avatarfull,
+                        password:Devise.friendly_token[0,20]
+                     )
+      user.id = uid
+      user.save
     end
     user
   end
@@ -35,10 +46,9 @@ class User < ActiveRecord::Base
   def self.new_with_session(params, session)
     super.tap do |user|
       if data = session["devise.steam_data"] && session["devise.steam_data"]["extra"]["raw_info"]
-        user.uid = data["uid"] if user.uid.blank?
+        user.id = data["id"] if user.id.blank?
       end
     end
   end
-  
   
 end

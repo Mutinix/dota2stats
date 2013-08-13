@@ -14,10 +14,10 @@ task :create_teams => :environment do
     output = JSON.parse(content)
     n = 0
     while output["result"]["teams"]["player_" + n + "_account_id"] != ""
-      uid = output["result"]["teams"]["player_" + n + "_account_id"]
-      uid = SteamIDConvert(32, uid)
-      player = User.find_by_uid(uid)
-      Team.players << player
+      id = output["result"]["teams"]["player_" + n + "_account_id"]
+      player = User.find_by_id(id)
+      team.players << player
+      n += 1
     end
   end
 end

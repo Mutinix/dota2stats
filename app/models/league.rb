@@ -11,4 +11,7 @@
 
 class League < ActiveRecord::Base
   attr_accessible :name, :url
+  
+  has_many :league_matches
+  has_many :matches, through: :league_matches
 end

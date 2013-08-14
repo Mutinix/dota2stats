@@ -1,35 +1,34 @@
-desc "Get match history"
-task :get_match_history => :environment do
+desc "Get tournament games"
+task :get_tournament_games => :environment do
   require 'open-uri'
   require 'json'
   
-  User.all.each do |user|
-    uid = user.id
-    last_match = user.matches.order("id ASC").first
-    if last_match != nil
-      last_match_id = last_match.id
-      url = "https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?account_id=#{uid}&start_at_match_id=#{last_match_id - 1}&key=#{STEAM_KEY}"
-    else
-      url = "https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?account_id=#{uid}&key=#{STEAM_KEY}"
-    end
+  League.all.each do |league|  
+    url = "https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?key=#{STEAM_KEY}&league_id=#{league.id}"
     content = open(url).read
     output = JSON.parse(content)
     
-    while true
+    next unless league.matches == []
+    print "Now logging games from #{league.name} \n"
+    
+    while output["result"]["results_remaining"] > 0
       output["result"]["matches"].each do |match|
+        next unless Match.find_by_id(match["match_id"]) == nil
         match_id = match["match_id"]
-        next if Match.find_by_id(match_id) != nil
         match_url = "https://api.steampowered.com/IDOTA2Match_570/GetMatchDetails/V001/?match_id=#{match_id}&key=#{STEAM_KEY}"
         match_content = open(match_url).read
         match_output = JSON.parse(match_content)
         match_result = match_output["result"]
-        m = Match.new({duration: match_result["duration"],
+        match = Match.new({duration: match_result["duration"],
                            game_mode: match_result["game_mode"],
                            radiant_win: match_result["radiant_win"]})
-        m.id = match_id
-        m.save
+        match.id = match_id
+        match.save
+        
+        league.matches << match
       
         match_result["players"].each do |player|
+          next if PlayerMatch.where({match_id: match_id, player_id: player["account_id"]}) != []
           PlayerMatch.create({
             assists: player["assists"],
             deaths: player["deaths"],
@@ -53,15 +52,12 @@ task :get_match_history => :environment do
             xp_per_min: player["xp_per_min"]
           })
         end
-      
       end
       
-      break if output["result"]["results_remaining"] == 0
-      
-      last_match = user.matches.order("id ASC").first
+      last_match = league.matches.order("id ASC").first
       last_match_id = last_match.id
       
-      url = "https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?account_id=#{uid}&start_at_match_id=#{last_match_id - 1}&key=#{STEAM_KEY}"
+      url = "https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?key=#{STEAM_KEY}&league_id=#{league.id}&start_at_match_id=#{last_match_id - 1}"
       content = open(url).read
       output = JSON.parse(content)
     end

@@ -220,7 +220,6 @@ task :get_items => :environment do
     i = Item.new({
       name: item,
       image_url: "http://media.steampowered.com/apps/dota2/images/items/#{item}_lg.png",
-      thumb_url: "http://media.steampowered.com/apps/dota2/images/items/#{item}_sb.png"
     })
     i.id = id
     i.save

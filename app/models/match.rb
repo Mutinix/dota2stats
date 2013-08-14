@@ -13,6 +13,10 @@
 class Match < ActiveRecord::Base
   attr_accessible :duration, :game_mode, :radiant_win
   
-  has_many :player_matches
+  has_many :player_matches, dependent: :destroy
   has_many :players, through: :player_matches, source: :user
+  
+  has_one :match_league
+  has_one :league, through: :match_league
+  
 end

@@ -11,10 +11,25 @@ task :get_tournament_games => :environment do
     while true
       output["result"]["matches"].each do |match|
         match_id = match["match_id"]
-        next unless Match.find_by_id(match_id) == nil        
+        db_match = Match.find_by_id(match_id)
+        
         match_url = "https://api.steampowered.com/IDOTA2Match_570/GetMatchDetails/V001/?match_id=#{match_id}&key=#{STEAM_KEY}"
         match_content = open(match_url).read
         match_output = JSON.parse(match_content)
+        
+        if db_match != nil
+          if MatchTeam.find_by_match_id(db_match.id) == nil
+            MatchTeam.create({
+              match_id: db_match.id,
+              radiant_team_id: match_output["result"]["radiant_team_id"],
+              dire_team_id: match_output["result"]["dire_team_id"],
+              radiant_logo: match_output["result"]["radiant_logo"],
+              dire_logo: match_output["result"]["dire_logo"]
+            })
+          end
+          next
+        end
+        
         m = Match.new({duration: match_output["result"]["duration"],
                            game_mode: match_output["result"]["game_mode"],
                            radiant_win: match_output["result"]["radiant_win"]})
@@ -47,6 +62,15 @@ task :get_tournament_games => :environment do
             xp_per_min: player["xp_per_min"]
           })
         end
+        
+        MatchTeam.create({
+          match_id: m.id,
+          radiant_team_id: match_output["result"]["radiant_team_id"],
+          dire_team_id: match_output["result"]["dire_team_id"],
+          radiant_logo: match_output["result"]["radiant_logo"],
+          dire_logo: match_output["result"]["dire_logo"]
+        })
+        
       end
       
       break if output["result"]["results_remaining"] == 0

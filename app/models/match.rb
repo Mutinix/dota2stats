@@ -19,4 +19,8 @@ class Match < ActiveRecord::Base
   has_one :match_league
   has_one :league, through: :match_league
   
+  has_one :match_team
+  has_one :radiant_team, through: :match_team, foreign_key: :radiant_team_id
+  has_one :dire_team, through: :match_team, foreign_key: :dire_team_id
+  
 end

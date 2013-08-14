@@ -1,6 +1,7 @@
 <thead>
   <tr>
     <th class="player-name">Player</th>
+    <th class="level">Level</th>
     <th class="hero" colspan="2">Hero</th>
     <th class="kills">K</th>
     <th class="deaths">D</th>
@@ -14,7 +15,8 @@
   </tr>
 </thead>
 <tbody>
-<% match.player_matches[startIndex..endIndex].each do |player| %>
+<% match.player_matches.each do |player| %>
+  <% next unless player.player_slot.between?(startIndex, endIndex)%>
   <% u = User.find_by_id(player["player_id"]) %>
   <tr>
     <td>
@@ -24,6 +26,7 @@
         Anonymous
       <% end %>
     </td>
+    <td><%= player.level %></td>
     <td>
       <img class="hero-image" src="<%= player.hero.thumb_url %>" >
     </td>

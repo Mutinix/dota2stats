@@ -1,0 +1,6 @@
+<td>
+  <% match.player_matches.each do |player| %>
+    <% next unless player.player_slot.between?(startIndex, endIndex)%>
+    <img class="hero-image" src="<%= player.hero.thumb_url %>" >
+  <% end %>
+</td>

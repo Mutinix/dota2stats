@@ -1,5 +1,8 @@
 DotaNexus::Application.routes.draw do
   
+  
+  root to: "static_pages#splash"
+
   devise_for :users, :controllers => {
                         :omniauth_callbacks => "users/omniauth_callbacks" }
                         

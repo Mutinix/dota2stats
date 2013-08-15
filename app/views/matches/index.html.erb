@@ -2,23 +2,23 @@
 <br>
 <table id="overview">
   <thead>
-    <th colspan="2">Radiant</th>
-    <th colspan="2">Dire</th>
+    <tr>
+      <th>Radiant Team</th>
+      <th class="heroes">Radiant Heroes</th>
+      <th>Dire Team</th>
+      <th class="heroes">Dire Heroes</th>
+    </tr>
   </thead>
   <tbody>
   <% @league_matches.each do |match| %>
-    <tr class="match-overview">
+    <tr class="match-overview" href="<%= match_path(match) %>">
       <td>
-        <a href="<%= match_path(match) %>">
           <%= match.radiant_team ? match.radiant_team.name : "Radiant" %>
           <%= render partial: "simple_side", locals: {match: match, startIndex: 0, endIndex: 4} %>
-        </a>
       </td>
       <td>
-        <a href="<%= match_path(match) %>">
           <%= match.dire_team ? match.dire_team.name : "Dire" %>
           <%= render partial: "simple_side", locals: {match: match, startIndex: 128, endIndex: 132} %>
-        </a>
       </td>
     </tr>
     <% end %>

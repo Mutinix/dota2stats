@@ -2,6 +2,10 @@ class MatchesController < ApplicationController
   
   def show
     @match = Match.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
   
   def index

@@ -1,35 +1,52 @@
 <form action="<%= scrims_url %>" method="post" id="scrim-request" data-remote="true">
 
-  <label>Team:
+  <table>
+    
+    <tbody>
+      <tr>
+        
+  <td><label>Team:</td>
+    <td>
     <select name="scrim[team2_id]">
       <% Team.order("LOWER(name)").each do |team| %>
         <% next if current_user.team == team %>
         <option value="<%= team.id %>"><%= team.name%></option>
       <% end %>
     </select>
+  </td>
   </label>
   
-  <br>
+  </tr>
   
-  <label>Date &amp; Time:
+  <tr>
+  <td><label>Date &amp; Time:  </label></td>
+  <td>
     <input name="scrim[date]" type="date" min="<%= Time.now.strftime('%Y-%m-%d') %>">
     <input type="time" name="scrim[time]">
-  </label>
+  </td>
   
-  <br>
+  </tr>
   
-  <label>Server:
+  <tr>
+    <td>
+  <label>Server:</td>
+    <td>
     <select name="scrim[server]">
       <% Server.order("LOWER(name)").each do |server| %>
         <option value="<%= server.name%>"><%= server.name%></option>
       <% end %>
     </select>
+  </td>
   </label>
   
-  <br>
+  </tr>
   
+  <tr><td>
   <input type="submit" value="Request Scrim">
   <input type="hidden" value="<%= form_authenticity_token %>"                            name="authenticity_token">
+</td>
+</tr>
+  </table>
 </form>
 
 <script>

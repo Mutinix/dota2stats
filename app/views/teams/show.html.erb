@@ -13,7 +13,9 @@
 Scrim Requests:
 
 <table class="scrims" id="scrim-requests">
-  <%= render partial: "./scrims/scrim", collection: @requests %>
+  <tbody>
+    <%= render partial: "./scrims/scrim", collection: @requests %>
+  </tbody>
 </table>
 
 
@@ -27,8 +29,9 @@ Scrim Challenges:
       <th>Server</th>
     </tr>
   </thead>
-  
-  <%= render partial: "./scrims/scrim", collection: @challenges %>
+  <tbody>
+    <%= render partial: "./scrims/scrim", collection: @challenges %>
+  </tbody>
 </table>
 
 <%= render partial: "./scrims/new_scrim" %>

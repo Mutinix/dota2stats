@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130816141154) do
+ActiveRecord::Schema.define(:version => 20130824031424) do
 
   create_table "heros", :force => true do |t|
     t.string   "name"
@@ -58,8 +58,9 @@ ActiveRecord::Schema.define(:version => 20130816141154) do
     t.boolean  "radiant_win"
     t.integer  "duration"
     t.integer  "game_mode"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.integer  "match_seq_num"
   end
 
   create_table "player_matches", :force => true do |t|

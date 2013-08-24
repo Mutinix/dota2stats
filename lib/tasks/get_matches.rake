@@ -1,21 +1,21 @@
-desc "Get match history"
-task :get_match_history => :environment do
+desc "Get matches"
+task :get_matches => :environment do
   require 'open-uri'
   require 'json'
   
-  User.all.each do |user|
-    uid = user.id
-    last_match = user.matches.order("id ASC").first
+  #User.all.each do |user|
+    last_match = Match.order("match_seq_num DESC").last
     if last_match != nil
-      last_match_id = last_match.id
-      url = "https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?account_id=#{uid}&start_at_match_id=#{last_match_id - 1}&key=#{STEAM_KEY}"
+      last_match_seq = last_match.match_seq_num
+      url = "https://api.steampowered.com/IDOTA2Match_570/GetMatchHistoryBySequenceNum/V001/?start_at_match_seq_num=#{last_match_seq + 1}&key=#{STEAM_KEY}"
     else
-      url = "https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?account_id=#{uid}&key=#{STEAM_KEY}"
+      url = "https://api.steampowered.com/IDOTA2Match_570/GetMatchHistoryBySequenceNum/V001/?key=#{STEAM_KEY}"
     end
     content = open(url).read
     output = JSON.parse(content)
     
     while true
+      
       output["result"]["matches"].each do |match|
         match_id = match["match_id"]
         next if Match.find_by_id(match_id) != nil
@@ -25,7 +25,8 @@ task :get_match_history => :environment do
         match_result = match_output["result"]
         m = Match.new({duration: match_result["duration"],
                            game_mode: match_result["game_mode"],
-                           radiant_win: match_result["radiant_win"]})
+                           radiant_win: match_result["radiant_win"],
+                           match_seq_num: match_result["match_seq_num"]})
         m.id = match_id
         m.save
       
@@ -56,8 +57,6 @@ task :get_match_history => :environment do
       
       end
       
-      break if output["result"]["results_remaining"] == 0
-      
       last_match = user.matches.order("id ASC").first
       last_match_id = last_match.id
       
@@ -65,5 +64,5 @@ task :get_match_history => :environment do
       content = open(url).read
       output = JSON.parse(content)
     end
-  end
+  #end
 end

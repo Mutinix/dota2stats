@@ -28,9 +28,9 @@
     </td>
     <td><%= player.level %></td>
     <td>
-      <img class="hero-image" src="<%= player.hero.thumb_url %>" >
+      <img class="hero-image" src="<%= player.hero.thumb_url if player.hero %>" >
     </td>
-    <td class="hero-name"><%= player.hero.localized_name %></td>
+    <td class="hero-name"><%= player.hero.localized_name if player.hero %></td>
     <td><%= player.kills %></td>
     <td><%= player.deaths %></td>
     <td><%= player.assists %></td>

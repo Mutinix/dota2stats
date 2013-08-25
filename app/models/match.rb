@@ -11,7 +11,7 @@
 #
 
 class Match < ActiveRecord::Base
-  attr_accessible :duration, :game_mode, :radiant_win
+  attr_accessible :duration, :game_mode, :radiant_win, :match_seq_num
   
   has_many :player_matches, dependent: :destroy
   has_many :players, through: :player_matches, source: :user

@@ -14,7 +14,5 @@
 /log/*.log
 /tmp
 .DS_Store
-/config/environments/development.rb
-/config/environments/test.rb
+/config/heroku_env.rb
 database.yml
-keys.rb

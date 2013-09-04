@@ -219,7 +219,7 @@ Devise.setup do |config|
   # ==> OmniAuth
   require 'omniauth-steam'
   # OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE if Rails.env.development? 
-  config.omniauth :steam, STEAM_KEY
+  config.omniauth :steam, ENV['STEAM_KEY']
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'

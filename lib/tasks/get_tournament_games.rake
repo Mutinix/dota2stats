@@ -4,7 +4,7 @@ task :get_tournament_games => :environment do
   require 'json'
   
   League.all.each do |league|  
-    url = "https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?key=#{STEAM_KEY}&league_id=#{league.id}"
+    url = "https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?key=#{ENV['STEAM_KEY']}&league_id=#{league.id}"
     content = open(url).read
     output = JSON.parse(content)
     
@@ -13,7 +13,7 @@ task :get_tournament_games => :environment do
         match_id = match["match_id"]
         db_match = Match.find_by_id(match_id)
         
-        match_url = "https://api.steampowered.com/IDOTA2Match_570/GetMatchDetails/V001/?match_id=#{match_id}&key=#{STEAM_KEY}"
+        match_url = "https://api.steampowered.com/IDOTA2Match_570/GetMatchDetails/V001/?match_id=#{match_id}&key=#{ENV['STEAM_KEY']}"
         match_content = open(match_url).read
         match_output = JSON.parse(match_content)
         
@@ -78,7 +78,7 @@ task :get_tournament_games => :environment do
       last_match = league.matches.order("id ASC").first
       last_match_id = last_match.id
       
-      url = "https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?key=#{STEAM_KEY}&league_id=#{league.id}&start_at_match_id=#{last_match_id - 1}"
+      url = "https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?key=#{ENV['STEAM_KEY']}&league_id=#{league.id}&start_at_match_id=#{last_match_id - 1}"
       content = open(url).read
       output = JSON.parse(content)
     end

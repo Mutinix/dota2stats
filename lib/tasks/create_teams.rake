@@ -5,7 +5,7 @@ task :create_teams => :environment do
   
   last_team_id = (Team.last ? Team.last.id : 1)
   
-  url = "https://api.steampowered.com/IDOTA2Match_570/GetTeamInfoByTeamID/V001/?start_at_team_id=#{last_team_id}&key=#{STEAM_KEY}"
+  url = "https://api.steampowered.com/IDOTA2Match_570/GetTeamInfoByTeamID/V001/?start_at_team_id=#{last_team_id}&key=#{ENV['STEAM_KEY']}"
   content = open(url).read
   output = JSON.parse(content)
   
@@ -21,7 +21,7 @@ task :create_teams => :environment do
     end
     
     last_team_id += 100
-    url = "https://api.steampowered.com/IDOTA2Match_570/GetTeamInfoByTeamID/V001/?start_at_team_id=#{last_team_id}&key=#{STEAM_KEY}"
+    url = "https://api.steampowered.com/IDOTA2Match_570/GetTeamInfoByTeamID/V001/?start_at_team_id=#{last_team_id}&key=#{ENV['STEAM_KEY']}"
     content = open(url).read
     output = JSON.parse(content)
     

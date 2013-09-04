@@ -3,7 +3,7 @@ task :get_heroes => :environment do
   require 'open-uri'
   require 'json'
   
-  url = "http://api.steampowered.com/IEconDOTA2_570/GetHeroes/V001/?key=#{STEAM_KEY}&language=en_us"
+  url = "http://api.steampowered.com/IEconDOTA2_570/GetHeroes/V001/?key=#{ENV['STEAM_KEY']}&language=en_us"
   content = open(url).read
   content = JSON.parse(content)
   

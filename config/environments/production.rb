@@ -1,5 +1,3 @@
-require 'test.rb'
-
 DotaNexus::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
@@ -68,5 +66,5 @@ DotaNexus::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
   
   # Default_url_options appropriate for a production environment 
-  config.action_mailer.default_url_options = { :host => 'shielded-fjord-5433.heroku.com' }
+  config.action_mailer.default_url_options = { :host => 'dotanexus.heroku.com' }
 end

@@ -2,12 +2,13 @@
 #
 # Table name: matches
 #
-#  id          :integer          not null, primary key
-#  radiant_win :boolean
-#  duration    :integer
-#  game_mode   :integer
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id            :integer          not null, primary key
+#  radiant_win   :boolean
+#  duration      :integer
+#  game_mode     :integer
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  match_seq_num :integer
 #
 
 class Match < ActiveRecord::Base

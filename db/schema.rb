@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130824031424) do
+ActiveRecord::Schema.define(:version => 20130906095034) do
 
   create_table "heros", :force => true do |t|
     t.string   "name"
@@ -121,7 +121,6 @@ ActiveRecord::Schema.define(:version => 20130824031424) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "uid",                    :default => "", :null => false
     t.string   "encrypted_password",     :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"

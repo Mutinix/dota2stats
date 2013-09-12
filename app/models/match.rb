@@ -9,10 +9,11 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  match_seq_num :integer
+#  start_time    :integer
 #
 
 class Match < ActiveRecord::Base
-  attr_accessible :duration, :game_mode, :radiant_win, :match_seq_num
+  attr_accessible :duration, :game_mode, :radiant_win, :match_seq_num, :start_time
   
   has_many :player_matches, dependent: :destroy
   has_many :players, through: :player_matches, source: :user

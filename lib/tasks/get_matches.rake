@@ -13,6 +13,7 @@ task :get_matches => :environment do
     end
     content = open(url).read
     output = JSON.parse(content)
+    break if output["result"]["matches"] == []
       
     output["result"]["matches"].each do |match|
       match_id = match["match_id"]
@@ -21,11 +22,12 @@ task :get_matches => :environment do
       match_content = open(match_url).read
       match_output = JSON.parse(match_content)
       match_result = match_output["result"]
-      m = Match.new({duration: match_result["duration"],
+      m = Match.new({    duration: match_result["duration"],
                          game_mode: match_result["game_mode"],
                          radiant_win: match_result["radiant_win"],
                          match_seq_num: match_result["match_seq_num"],
-                         start_time: match_result["start_time"]})
+                         start_time: match_result["start_time"],
+                         lobby_type: match_result["lobby_type"] })
       m.id = match_id
       m.save
     

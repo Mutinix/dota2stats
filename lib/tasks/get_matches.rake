@@ -24,7 +24,8 @@ task :get_matches => :environment do
       m = Match.new({duration: match_result["duration"],
                          game_mode: match_result["game_mode"],
                          radiant_win: match_result["radiant_win"],
-                         match_seq_num: match_result["match_seq_num"]})
+                         match_seq_num: match_result["match_seq_num"],
+                         start_time: match_result["start_time"]})
       m.id = match_id
       m.save
     
@@ -50,7 +51,6 @@ task :get_matches => :environment do
           player_id: player["account_id"],
           player_slot: player["player_slot"],
           xp_per_min: player["xp_per_min"],
-          start_time: player["start_time"]
         })
       end
       

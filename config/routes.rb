@@ -2,6 +2,7 @@ DotaNexus::Application.routes.draw do
   
   
   root to: "static_pages#splash"
+  post 'auth/steam/callback' => 'users#auth_callback'
   
   resources :teams, only: [:show]
   resources :users, only: [:show]

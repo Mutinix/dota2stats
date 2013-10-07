@@ -19,6 +19,7 @@ group :assets do
 end
 
 gem 'omniauth-steam'
+gem 'figaro'
 
 gem 'jquery-rails'
 

@@ -14,4 +14,7 @@
 /log/*.log
 /tmp
 .DS_Store
-/config/heroku_env.rb
+/config/initializers/secret_token.rb
+
+# Ignore application configuration
+/config/application.yml

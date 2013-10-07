@@ -18,8 +18,6 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'devise'
-gem 'omniauth'
 gem 'omniauth-steam'
 
 gem 'jquery-rails'

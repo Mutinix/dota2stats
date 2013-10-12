@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131007143152) do
+ActiveRecord::Schema.define(:version => 20131012103345) do
 
   create_table "heros", :force => true do |t|
     t.string   "name"
@@ -58,11 +58,20 @@ ActiveRecord::Schema.define(:version => 20131007143152) do
     t.boolean  "radiant_win"
     t.integer  "duration"
     t.integer  "game_mode"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
     t.integer  "match_seq_num"
     t.integer  "start_time"
     t.integer  "lobby_type"
+    t.integer  "tower_status_radiant"
+    t.integer  "tower_status_dire"
+    t.integer  "barracks_status_radiant"
+    t.integer  "barracks_status_dire"
+    t.integer  "cluster"
+    t.integer  "first_blood_time"
+    t.integer  "human_players"
+    t.integer  "positive_votes"
+    t.integer  "negative_votes"
   end
 
   create_table "player_matches", :force => true do |t|

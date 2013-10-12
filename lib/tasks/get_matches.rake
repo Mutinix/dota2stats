@@ -27,7 +27,17 @@ task :get_matches => :environment do
                          radiant_win: match_result["radiant_win"],
                          match_seq_num: match_result["match_seq_num"],
                          start_time: match_result["start_time"],
-                         lobby_type: match_result["lobby_type"] })
+                         lobby_type: match_result["lobby_type"],
+                         tower_status_radiant: match_result["tower_status_radiant"],
+                         tower_status_dire: match_result["tower_status_dire"],
+                         barracks_status_radiant: match_result["barracks_status_radiant"],
+                         barracks_status_dire: match_result["barracks_status_dire"],
+                         cluster: match_result["cluster"],
+                         first_blood_time: match_result["first_blood_time"],
+                         human_players: match_result["human_players"],
+                         positive_votes: match_result["positive_votes"],
+                         negative_votes: match_result["negative_votes"]
+                          })
       m.id = match_id
       m.save
     

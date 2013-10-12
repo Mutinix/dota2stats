@@ -63,6 +63,9 @@ task :get_matches => :environment do
           player_id: player["account_id"],
           player_slot: player["player_slot"],
           xp_per_min: player["xp_per_min"],
+          hero_damage: player["hero_damage"],
+          tower_damage: player["tower_damage"],
+          hero_healing: player["hero_healing"]
         })
       end
       

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131012110152) do
+ActiveRecord::Schema.define(:version => 20131013132520) do
 
   create_table "heros", :force => true do |t|
     t.string   "name"
@@ -96,11 +96,12 @@ ActiveRecord::Schema.define(:version => 20131012110152) do
     t.integer  "xp_per_min"
     t.integer  "gold_spent"
     t.integer  "level"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
     t.integer  "hero_damage"
     t.integer  "tower_damage"
     t.integer  "hero_healing"
+    t.integer  "leaver_status"
   end
 
   create_table "player_teams", :force => true do |t|

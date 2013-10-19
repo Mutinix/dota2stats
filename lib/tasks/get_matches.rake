@@ -70,13 +70,15 @@ task :get_matches => :environment do
           leaver_status: player["leaver_status"]
         })
         
-        player["ability_upgrades"].each do |ability_upgrade|
-          AbilityUpgrade.create({
-            ability_id: ability_upgrade["ability"],
-            level: ability_upgrade["level"],
-            player_match_id: pm.id,
-            time: ability_upgrade["time"]
-          })
+        if player["ability_upgrades"]
+          player["ability_upgrades"].each do |ability_upgrade|
+            AbilityUpgrade.create({
+              ability_id: ability_upgrade["ability"],
+              level: ability_upgrade["level"],
+              player_match_id: pm.id,
+              time: ability_upgrade["time"]
+            })
+          end
         end
         
         if player["additional_units"]
@@ -93,6 +95,7 @@ task :get_matches => :environment do
             })
           end
         end
+        
       end
       
     end

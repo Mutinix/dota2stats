@@ -43,7 +43,7 @@ task :get_matches => :environment do
       m.save
     
       match_result["players"].each do |player|
-        PlayerMatch.create({
+        pm = PlayerMatch.create({
           assists: player["assists"],
           deaths: player["deaths"],
           denies: player["denies"],
@@ -69,6 +69,15 @@ task :get_matches => :environment do
           hero_healing: player["hero_healing"],
           leaver_status: player["leaver_status"]
         })
+        
+        player["ability_upgrades"].each do |ability_upgrade|
+          AbilityUpgrade.create({
+            ability_id: ability_upgrade["ability"],
+            level: ability_upgrade["level"],
+            player_match_id: pm.id,
+            time: ability_upgrade["time"]
+          })
+        end
       end
       
     end

@@ -24,9 +24,11 @@
 #
 
 class Match < ActiveRecord::Base
-  attr_accessible :duration, :game_mode, :radiant_win, :match_seq_num, :start_time, :lobby_type,
-                  :tower_status_radiant, :tower_status_dire, :barracks_status_radiant, :barracks_status_dire,
-                  :cluster, :first_blood_time, :human_players, :positive_votes, :negative_votes, :leagueid
+  attr_accessible :duration, :game_mode, :radiant_win, :match_seq_num,
+                  :start_time, :lobby_type, :tower_status_radiant,
+                  :tower_status_dire, :barracks_status_radiant,
+                  :barracks_status_dire, :cluster, :first_blood_time,
+                  :human_players, :positive_votes, :negative_votes, :leagueid
   
   has_many :player_matches, dependent: :destroy
   has_many :players, through: :player_matches, source: :user

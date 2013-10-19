@@ -1,0 +1,5 @@
+<ul>
+  <% Item.all.each do |item| %>
+  <li><%= image_tag item.image_url %></li>
+  <% end %>
+</ul>

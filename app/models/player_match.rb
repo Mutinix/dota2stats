@@ -40,6 +40,7 @@ class PlayerMatch < ActiveRecord::Base
   belongs_to :hero
   
   has_many :ability_upgrades
+  has_many :additional_units
   
   def is_radiant?
     self.player_slot < 128

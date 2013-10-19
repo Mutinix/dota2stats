@@ -20,6 +20,7 @@
 #  human_players           :integer
 #  positive_votes          :integer
 #  negative_votes          :integer
+#  leagueid                :integer
 #
 
 class Match < ActiveRecord::Base

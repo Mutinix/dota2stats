@@ -2,29 +2,33 @@
 #
 # Table name: player_matches
 #
-#  id           :integer          not null, primary key
-#  match_id     :integer
-#  player_id    :integer
-#  player_slot  :integer
-#  hero_id      :integer
-#  item_0       :integer
-#  item_1       :integer
-#  item_2       :integer
-#  item_3       :integer
-#  item_4       :integer
-#  item_5       :integer
-#  kills        :integer
-#  deaths       :integer
-#  assists      :integer
-#  gold         :integer
-#  last_hits    :integer
-#  denies       :integer
-#  gold_per_min :integer
-#  xp_per_min   :integer
-#  gold_spent   :integer
-#  level        :integer
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  id            :integer          not null, primary key
+#  match_id      :integer
+#  player_id     :integer
+#  player_slot   :integer
+#  hero_id       :integer
+#  item_0        :integer
+#  item_1        :integer
+#  item_2        :integer
+#  item_3        :integer
+#  item_4        :integer
+#  item_5        :integer
+#  kills         :integer
+#  deaths        :integer
+#  assists       :integer
+#  gold          :integer
+#  last_hits     :integer
+#  denies        :integer
+#  gold_per_min  :integer
+#  xp_per_min    :integer
+#  gold_spent    :integer
+#  level         :integer
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  hero_damage   :integer
+#  tower_damage  :integer
+#  hero_healing  :integer
+#  leaver_status :integer
 #
 
 class PlayerMatch < ActiveRecord::Base

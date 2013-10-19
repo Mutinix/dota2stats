@@ -78,6 +78,21 @@ task :get_matches => :environment do
             time: ability_upgrade["time"]
           })
         end
+        
+        if player["additional_units"]
+          player["additional_units"].each do |additional_unit|
+            AdditionalUnit.create({
+              unitname: additional_unit["unitname"],
+              item_0: additional_unit["item_0"],
+              item_1: additional_unit["item_1"],
+              item_2: additional_unit["item_2"],
+              item_3: additional_unit["item_3"],
+              item_4: additional_unit["item_4"],
+              item_5: additional_unit["item_5"],
+              player_match_id: pm.id
+            })
+          end
+        end
       end
       
     end

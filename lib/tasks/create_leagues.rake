@@ -3,7 +3,7 @@ task :create_leagues => :environment do
   require 'open-uri'
   require 'json'
   
-  url = "https://api.steampowered.com/IDOTA2Match_570/GetLeagueListing/V001/?key=#{ENV['STEAM_KEY']}"
+  url = "https://api.steampowered.com/IDOTA2Match_570/GetLeagueListing/V001/?key=#{ENV['STEAM_KEY']}&language=en_us"
   content = open(url).read
   output = JSON.parse(content)
 

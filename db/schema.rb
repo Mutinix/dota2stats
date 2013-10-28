@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131028161237) do
+ActiveRecord::Schema.define(:version => 20131028174208) do
 
   create_table "abilities", :force => true do |t|
     t.string   "name"
@@ -102,6 +102,7 @@ ActiveRecord::Schema.define(:version => 20131028161237) do
     t.integer  "positive_votes"
     t.integer  "negative_votes"
     t.integer  "leagueid"
+    t.integer  "match_id"
   end
 
   create_table "player_matches", :force => true do |t|

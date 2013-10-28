@@ -3,7 +3,9 @@ task :get_matches => :environment do
   require 'open-uri'
   require 'json'
   
-  while true
+  count = 0
+  
+  while count <= 80000
     last_match = Match.order("match_seq_num DESC").first
     if last_match != nil
       last_match_seq = last_match.match_seq_num
@@ -16,6 +18,7 @@ task :get_matches => :environment do
     break if output["result"]["matches"] == []
       
     output["result"]["matches"].each do |match|
+      count += 1
       match_id = match["match_id"]
       next if Match.find_by_id(match_id) != nil
       match_url = "https://api.steampowered.com/IDOTA2Match_570/GetMatchDetails/V001/?match_id=#{match_id}&key=#{ENV['STEAM_KEY']}"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131028161237) do
+ActiveRecord::Schema.define(:version => 20131107145432) do
 
   create_table "abilities", :force => true do |t|
     t.string   "name"
@@ -83,12 +83,13 @@ ActiveRecord::Schema.define(:version => 20131028161237) do
     t.datetime "updated_at",      :null => false
   end
 
-  create_table "matches", :force => true do |t|
+  create_table "matches", :id => false, :force => true do |t|
+    t.integer  "id",                      :limit => 8
     t.boolean  "radiant_win"
     t.integer  "duration"
     t.integer  "game_mode"
-    t.datetime "created_at",              :null => false
-    t.datetime "updated_at",              :null => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
     t.integer  "match_seq_num"
     t.integer  "start_time"
     t.integer  "lobby_type"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131107152752) do
+ActiveRecord::Schema.define(:version => 20131107161521) do
 
   create_table "abilities", :force => true do |t|
     t.string   "name"
@@ -79,8 +79,16 @@ ActiveRecord::Schema.define(:version => 20131107152752) do
     t.string   "radiant_logo"
     t.integer  "dire_team_id"
     t.string   "dire_logo"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+    t.integer  "radiant_team_complete"
+    t.integer  "dire_team_complete"
+    t.integer  "radiant_guild_id"
+    t.integer  "dire_guild_id"
+    t.integer  "radiant_guild_name"
+    t.integer  "dire_guild_name"
+    t.string   "radiant_guild_logo"
+    t.string   "dire_guild_logo"
   end
 
   create_table "matches", :id => false, :force => true do |t|

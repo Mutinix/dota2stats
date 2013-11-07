@@ -44,6 +44,18 @@ task :get_matches => :environment do
                           })
       m.id = match_id      
       m.save
+      
+      if match["picks_bans"]
+        match["picks_bans"].each do |selection|
+          PickBan.create({
+            is_pick: match["is_pick"],
+            hero_id: match["hero_id"],
+            team: match["team"],
+            order: match["order"],
+            match_id: match_id
+          })
+        end
+      end
     
       match_result["players"].each do |player|
         pm = PlayerMatch.create({

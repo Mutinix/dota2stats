@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131107145432) do
+ActiveRecord::Schema.define(:version => 20131107152752) do
 
   create_table "abilities", :force => true do |t|
     t.string   "name"
@@ -103,6 +103,16 @@ ActiveRecord::Schema.define(:version => 20131107145432) do
     t.integer  "positive_votes"
     t.integer  "negative_votes"
     t.integer  "leagueid"
+  end
+
+  create_table "pick_bans", :force => true do |t|
+    t.boolean  "is_pick"
+    t.integer  "hero_id"
+    t.integer  "team"
+    t.integer  "order"
+    t.integer  "match_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "player_matches", :force => true do |t|

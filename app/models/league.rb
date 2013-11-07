@@ -8,6 +8,7 @@
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  localized_name :string(255)
+#  description    :text
 #
 
 class League < ActiveRecord::Base

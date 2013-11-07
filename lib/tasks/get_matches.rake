@@ -45,16 +45,34 @@ task :get_matches => :environment do
       m.id = match_id      
       m.save
       
-      if match["picks_bans"]
-        match["picks_bans"].each do |selection|
+      if match_result["picks_bans"]
+        match_result["picks_bans"].each do |selection|
           PickBan.create({
-            is_pick: match["is_pick"],
-            hero_id: match["hero_id"],
-            team: match["team"],
-            order: match["order"],
+            is_pick: selection["is_pick"],
+            hero_id: selection["hero_id"],
+            team: selection["team"],
+            order: selection["order"],
             match_id: match_id
           })
         end
+      end
+      
+      if match_result["leagueid"] != 0
+        MatchTeam.create({
+          match_id: match_id,
+          radiant_team_id: match_result["radiant_team_id"],
+          radiant_logo: match_result["radiant_logo"],
+          radiant_team_complete: match_result["radiant_team_complete"],
+          radiant_guild_id: match_result["radiant_guild_id"],
+          radiant_guild_name: match_result["radiant_guild_name"],
+          radiant_guild_logo: match_result["radiant_guild_logo"],
+          dire_team_id: match_result["dire_team_id"],
+          dire_logo: match_result["dire_logo"],
+          dire_team_complete: match_result["dire_team_complete"],
+          dire_guild_id: match_result["dire_guild_id"],
+          dire_guild_name: match_result["dire_guild_name"],
+          dire_guild_logo: match_result["dire_guild_logo"]
+        })
       end
     
       match_result["players"].each do |player|

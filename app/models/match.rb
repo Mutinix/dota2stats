@@ -2,7 +2,6 @@
 #
 # Table name: matches
 #
-#  id                      :integer          not null, primary key
 #  radiant_win             :boolean
 #  duration                :integer
 #  game_mode               :integer
@@ -21,6 +20,7 @@
 #  positive_votes          :integer
 #  negative_votes          :integer
 #  leagueid                :integer
+#  id                      :integer          not null, primary key
 #
 
 class Match < ActiveRecord::Base

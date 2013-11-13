@@ -1,1 +1,1 @@
-worker: bundle exec rake get_matches
+worker: QUEUE=* bundle exec rake resque:work

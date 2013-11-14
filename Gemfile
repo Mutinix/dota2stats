@@ -25,6 +25,7 @@ gem 'jquery-rails'
 
 gem 'nokogiri'
 
+gem 'redis'
 gem 'resque'
 
 # To use ActiveModel has_secure_password

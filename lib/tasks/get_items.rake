@@ -10,7 +10,7 @@ task :get_items => :environment do
   output["itemdata"].each do |item|
     i = Item.new({
       name: item[0],
-      image_url: "http://media.steampowered.com/apps/dota2/images/items/#{item[1]['img']}_lg.png"
+      image_url: "http://media.steampowered.com/apps/dota2/images/items/#{item[1]['img']}"
     })
     i.id = item[1]['id']
     i.save

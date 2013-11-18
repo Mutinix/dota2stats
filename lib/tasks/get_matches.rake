@@ -76,7 +76,7 @@ task :get_matches => :environment do
       end
     
       match_result["players"].each do |player|
-        pm = PlayerMatch.create({
+        pm = PlayerMatch.new({
           assists: player["assists"],
           deaths: player["deaths"],
           denies: player["denies"],
@@ -102,6 +102,9 @@ task :get_matches => :environment do
           hero_healing: player["hero_healing"],
           leaver_status: player["leaver_status"]
         })
+        
+        pm["tower_damage"] = 0 if pm["tower_damage"] == 4294967295
+        pm.save
         
         if player["ability_upgrades"]
           player["ability_upgrades"].each do |ability_upgrade|

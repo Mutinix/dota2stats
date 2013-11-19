@@ -23,7 +23,7 @@ class GetMatches
       break if output["result"]["matches"] == []
       
       output["result"]["matches"].each do |match|
-        sleep 0.5
+        sleep 0.4
         match_id = match["match_id"]
         next if Match.find_by_id(match_id) != nil
         begin
@@ -113,7 +113,9 @@ class GetMatches
             leaver_status: player["leaver_status"]
           })
           
-          pm["tower_damage"] = 0 if pm["tower_damage"] == 4294967295
+          pm["tower_damage"] = 0 if pm["tower_damage"] > 2147483647
+          pm["hero_healing"] = 0 if pm["hero_healing"] > 2147483647
+          pm["hero_damage"] = 0 if pm["hero_damage"] > 2147483647
           pm.save
         
           if player["ability_upgrades"]

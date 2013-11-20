@@ -18,7 +18,7 @@ class GetMatches
         output = JSON.parse(content)
       rescue => e
         if e === OpenURI::HTTPError or e === Errno::ECONNRESET
-          sleep 15
+          sleep 30
           next
         end
       end
@@ -26,7 +26,7 @@ class GetMatches
       break if output["result"]["matches"] == []
       
       output["result"]["matches"].each do |match|
-        sleep 0.5
+        sleep 0.4
         match_id = match["match_id"]
         next if Match.find_by_id(match_id) != nil
         begin
@@ -34,7 +34,7 @@ class GetMatches
           match_content = open(match_url).read
         rescue => e
           if e === OpenURI::HTTPError or e === Errno::ECONNRESET
-            sleep 15
+            sleep 30
             redo
           end
         end

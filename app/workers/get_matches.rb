@@ -16,21 +16,21 @@ class GetMatches
         end
         content = open(url).read
         output = JSON.parse(content)
-      rescue OpenURI::HTTPError => e
-        next
+      rescue => e
+        next if e === OpenURI::HTTPError or e === Errno::ECONNRESET
       end
       
       break if output["result"]["matches"] == []
       
       output["result"]["matches"].each do |match|
-        sleep 0.4
+        sleep 0.5
         match_id = match["match_id"]
         next if Match.find_by_id(match_id) != nil
         begin
           match_url = "https://api.steampowered.com/IDOTA2Match_570/GetMatchDetails/V001/?match_id=#{match_id}&key=#{ENV['STEAM_KEY']}"
           match_content = open(match_url).read
-        rescue OpenURI::HTTPError => e
-          redo
+        rescue => e
+          redo if e === OpenURI::HTTPError or e === Errno::ECONNRESET
         end
         
         match_output = JSON.parse(match_content)

@@ -36,6 +36,9 @@ class GetMatches
           if e === OpenURI::HTTPError or e === Errno::ECONNRESET
             sleep 30
             redo
+          elsif e == TypeError
+            sleep 30
+            retry
           end
         end
         

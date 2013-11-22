@@ -32,6 +32,8 @@ class GetMatches
         begin
           match_url = "https://api.steampowered.com/IDOTA2Match_570/GetMatchDetails/V001/?match_id=#{match_id}&key=#{ENV['STEAM_KEY']}"
           match_content = open(match_url).read
+          match_output = JSON.parse(match_content)
+          match_result = match_output["result"]
         rescue => e
           if e === OpenURI::HTTPError or e === Errno::ECONNRESET
             sleep 30
@@ -42,8 +44,6 @@ class GetMatches
           end
         end
         
-        match_output = JSON.parse(match_content)
-        match_result = match_output["result"] 
         m = Match.new({    duration: match_result["duration"],
                            game_mode: match_result["game_mode"],
                            radiant_win: match_result["radiant_win"],

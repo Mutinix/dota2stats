@@ -217,7 +217,7 @@ task :get_items => :environment do
   "213" => "recipe_tranquil_boots",
   "214" => "tranquil_boots",
   "215" => "shadow_amulet"}.each do |id, item|
-    next if Item.find(id) != nil
+    next if Item.find_by_id(id) != nil
     i = Item.new({
       name: item,
       image_url: "http://media.steampowered.com/apps/dota2/images/items/#{item}_lg.png",

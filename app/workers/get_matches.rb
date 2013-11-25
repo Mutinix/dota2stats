@@ -35,14 +35,13 @@ class GetMatches
           match_output = JSON.parse(match_content)
           match_result = match_output["result"]
         rescue => e
-          if e === OpenURI::HTTPError or e === Errno::ECONNRESET
-            sleep 30
-            redo
-          elsif e == TypeError
+          if e === OpenURI::HTTPError or e === Errno::ECONNRESET or e === TypeError
             sleep 30
             retry
           end
         end
+        
+        next if match_result == nil
         
         m = Match.new({    duration: match_result["duration"],
                            game_mode: match_result["game_mode"],

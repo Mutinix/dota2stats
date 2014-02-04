@@ -1,7 +1,7 @@
 class GetMatches
   @queue = :matches_queue
   
-  def self.perform(API_Key)
+  def self.perform(api_key)
     require 'open-uri'
     require 'json'
   
@@ -9,7 +9,7 @@ class GetMatches
       begin
         last_match = Match.order("match_seq_num DESC").first
         last_match_seq = last_match.match_seq_num
-        url = "https://api.steampowered.com/IDOTA2Match_570/GetMatchHistoryBySequenceNum/V001/?start_at_match_seq_num=#{last_match_seq + 1}&key=#{API_Key}"
+        url = "https://api.steampowered.com/IDOTA2Match_570/GetMatchHistoryBySequenceNum/V001/?start_at_match_seq_num=#{last_match_seq + 1}&key=#{api_key}"
         content = open(url).read
         output = JSON.parse(content)
       rescue => e
@@ -26,7 +26,7 @@ class GetMatches
         match_id = match["match_id"]
         next if Match.find_by_id(match_id) != nil
         begin
-          match_url = "https://api.steampowered.com/IDOTA2Match_570/GetMatchDetails/V001/?match_id=#{match_id}&key=#{API_Key}"
+          match_url = "https://api.steampowered.com/IDOTA2Match_570/GetMatchDetails/V001/?match_id=#{match_id}&key=#{api_key}"
           match_content = open(match_url).read
           match_output = JSON.parse(match_content)
           match_result = match_output["result"]

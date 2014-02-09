@@ -153,9 +153,9 @@ class GetMatches
     end
   end
   
-  def self.on_failure_retry(error, *args)
-    sleep 60
-    Resque.enqueue self, *args
-  end
+  # def self.on_failure_retry(error, *args)
+  #   sleep 60
+  #   Resque.enqueue self, *args
+  # end
   
 end

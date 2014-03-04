@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131107215106) do
+ActiveRecord::Schema.define(:version => 20140304095344) do
 
   create_table "abilities", :force => true do |t|
     t.string   "name"
@@ -53,13 +53,6 @@ ActiveRecord::Schema.define(:version => 20131107215106) do
   create_table "items", :force => true do |t|
     t.string   "name"
     t.text     "image_url"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "league_matches", :force => true do |t|
-    t.integer  "league_id"
-    t.integer  "match_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -109,7 +102,7 @@ ActiveRecord::Schema.define(:version => 20131107215106) do
     t.integer  "human_players"
     t.integer  "positive_votes"
     t.integer  "negative_votes"
-    t.integer  "leagueid"
+    t.integer  "league_id"
   end
 
   create_table "pick_bans", :force => true do |t|
@@ -162,9 +155,9 @@ ActiveRecord::Schema.define(:version => 20131107215106) do
     t.integer  "team1_id"
     t.integer  "team2_id"
     t.datetime "match_time"
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
-    t.boolean  "approved",   :default => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.boolean  "approved"
     t.string   "server"
   end
 

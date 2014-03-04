@@ -153,6 +153,7 @@ class GetTournamentMatches
         break if output["result"]["results_remaining"] == 0
       
         last_match = league.matches.order("id ASC").first
+        break unless last_match
         last_match_id = last_match.id
       
         url = "https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?key=#{ENV['STEAM_KEY']}&league_id=#{league.id}&start_at_match_id=#{last_match_id - 1}"

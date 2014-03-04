@@ -33,11 +33,9 @@ class Match < ActiveRecord::Base
   has_many :player_matches, dependent: :destroy
   has_many :players, through: :player_matches, source: :user
   
-  has_one :match_league
-  has_one :league, through: :match_league
+  belongs_to :league
   
-  has_one :match_team
-  has_one :radiant_team, through: :match_team, foreign_key: :radiant_team_id
-  has_one :dire_team, through: :match_team, foreign_key: :dire_team_id
+  has_one :radiant_team, :class_name => "MatchTeam", foreign_key: :radiant_team_id
+  has_one :dire_team, :class_name => "MatchTeam", foreign_key: :dire_team_id
   
 end

@@ -53,7 +53,7 @@ class GetTournamentMatches
                              human_players: match_result["human_players"],
                              positive_votes: match_result["positive_votes"],
                              negative_votes: match_result["negative_votes"],
-                             leagueid: match_result["leagueid"]
+                             league_id: match_result["leagueid"]
                               })
           m.id = match_id      
           m.save

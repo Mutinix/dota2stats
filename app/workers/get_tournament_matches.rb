@@ -12,8 +12,8 @@ class GetTournamentMatches
         output = JSON.parse(content)
       rescue => e
         if e === OpenURI::HTTPError or e === Errno::ECONNRESET
-          sleep 30
-          next
+          sleep 60
+          retry
         end
       end
       
@@ -151,12 +151,13 @@ class GetTournamentMatches
         end
       
         break if output["result"]["results_remaining"] == 0
+        
+        last_match_id = output["result"]["matches"][-1]["match_id"]
+        # last_match = league.matches.order("id ASC").first
+        # break unless last_match
+        # last_match_id = last_match.id
       
-        last_match = league.matches.order("id ASC").first
-        break unless last_match
-        last_match_id = last_match.id
-      
-        url = "https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?key=#{ENV['STEAM_KEY']}&league_id=#{league.id}&start_at_match_id=#{last_match_id - 1}"
+        url = "https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?key=#{ENV['STEAM_KEY']}&league_id=#{league.id}&start_at_match_id=#{last_match_id}"
         content = open(url).read
         output = JSON.parse(content)
       end

@@ -65,3 +65,6 @@ group :production do
   gem 'pg'
   gem 'rails_12factor'
 end
+
+# Rails CMS Engine
+gem 'comfortable_mexican_sofa', '~> 1.8.0'

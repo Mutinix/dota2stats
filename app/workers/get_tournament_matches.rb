@@ -5,7 +5,7 @@ class GetTournamentMatches
     require 'open-uri'
     require 'json'
   
-    League.reverse.all.each do |league|
+    League.all.reverse.each do |league|
       begin
         url = "https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?key=#{api_key}&league_id=#{league.id}"
         content = open(url).read

@@ -18,7 +18,8 @@ class GetTournamentMatches
       end
       
       while true
-        break if output["result"]["matches"] == [] or output["result"] == nil
+        sleep 3600 if output == nil
+        break if output["result"]["matches"] == []
       
         output["result"]["matches"].each do |match|
           sleep 0.5

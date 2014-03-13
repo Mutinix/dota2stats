@@ -1,12 +1,7 @@
+require "resque_web"
+
 DotaNexus::Application.routes.draw do
   
-  
-  
-  ComfortableMexicanSofa::Routing.admin(:path => '/cms-admin')
-  
-  # Make sure this routeset is defined last
-  ComfortableMexicanSofa::Routing.content(:path => '/', :sitemap => false)
-
   root to: "static_pages#splash"
   post 'auth/steam/callback' => 'users#auth_callback'
   
@@ -20,5 +15,12 @@ DotaNexus::Application.routes.draw do
   get '/roster', to: 'teams#show', as: :roster
   
   resources :scrims, only: [:create]
+  
+  mount ResqueWeb::Engine => "/resque_web"
+  
+  ComfortableMexicanSofa::Routing.admin(:path => '/cms-admin')
+  
+  # Make sure this routeset is defined last
+  ComfortableMexicanSofa::Routing.content(:path => '/', :sitemap => false)
   
 end

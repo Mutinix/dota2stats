@@ -28,6 +28,7 @@ gem 'nokogiri'
 
 gem 'redis'
 gem 'resque'
+gem 'resque-web', require: 'resque_web'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

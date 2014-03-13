@@ -25,7 +25,7 @@ class GetTournamentMatches
         break if output["result"]["matches"] == []
       
         output["result"]["matches"].each do |match|
-          sleep 0.5
+          sleep 0.75
           match_id = match["match_id"]
           next if Match.find_by_id(match_id) != nil
           begin

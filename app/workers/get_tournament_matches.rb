@@ -19,8 +19,8 @@ class GetTournamentMatches
       
       while true
         if output == nil
-          sleep 3600
-          next
+          sleep 60
+          break
         end
         break if output["result"]["matches"] == []
       

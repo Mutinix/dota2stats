@@ -15,7 +15,7 @@ class GetTournamentMatches
       rescue => e
         if e === OpenURI::HTTPError or e === Errno::ECONNRESET
           sleep 60
-          logger.error e
+          logger.error "Error encountered - #{e}"
           retry
         end
       end
@@ -37,16 +37,20 @@ class GetTournamentMatches
         output["result"]["matches"].each do |match|
           sleep 0.75
           match_id = match["match_id"]
-          next if Match.find_by_id(match_id) != nil
+          if Match.find_by_id(match_id) != nil
+            logger.info "Match #{match_id} already exists."
+            next
+          end
+          
           begin
             match_url = "https://api.steampowered.com/IDOTA2Match_570/GetMatchDetails/V001/?match_id=#{match_id}&key=#{api_key}"
             match_content = open(match_url).read
             match_output = JSON.parse(match_content)
             match_result = match_output["result"]
           rescue => e
-            if e === OpenURI::HTTPError or e === Errno::ECONNRESET or e === TypeError
+            if e === OpenURI::HTTPError or e === Errno::ECONNRESET
               sleep 30
-              logger.error e
+              logger.error "Error encountered - #{e}"
               retry
             end
           end
@@ -75,7 +79,9 @@ class GetTournamentMatches
                           league_id: match_result["leagueid"]
                               })
           m.id = match_id 
-          m.save!
+          unless m.save
+            logger.warn "Match could not be saved."
+          end
           
           logger.debug "Created entry for match."
       

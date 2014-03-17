@@ -39,11 +39,12 @@ class GetTournamentMatches
           match_id = match["match_id"]
           mh = Match.find_by_id(match_id)
           if mh != nil
+            logger.info "Match #{match_id} already exists."
             if mh.league_id != league.id
+              logger.info "league_id updated from #{mh.league_id} to #{league.id}"
               mh.league_id = league.id
               mh.save
             end
-            logger.info "Match #{match_id} already exists."
             next
           end
           

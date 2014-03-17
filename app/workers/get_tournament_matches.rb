@@ -4,7 +4,9 @@ class GetTournamentMatches
   def self.perform(api_key)
     require 'open-uri'
     require 'json'
-  
+    
+    logger = Logger.new(STDOUT)
+    
     League.all.reverse.each do |league|
       begin
         url = "https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?key=#{api_key}&league_id=#{league.id}"
@@ -13,16 +15,24 @@ class GetTournamentMatches
       rescue => e
         if e === OpenURI::HTTPError or e === Errno::ECONNRESET
           sleep 60
+          logger.error e
           retry
         end
       end
       
+      logger.info "Currently processing league #{league.id} - #{league.name}"
+      logger.info "Total matches: #{output['result']['total_results']}"
+      
       while true
         if output == nil
+          logger.warn "Output is nil."
           sleep 60
           break
         end
-        break if output["result"]["matches"] == []
+        
+        if output["result"]["matches"] == []
+          logger.info "Matches array is empty."
+        end
       
         output["result"]["matches"].each do |match|
           sleep 0.75
@@ -36,33 +46,41 @@ class GetTournamentMatches
           rescue => e
             if e === OpenURI::HTTPError or e === Errno::ECONNRESET or e === TypeError
               sleep 30
+              logger.error e
               retry
             end
           end
         
-          next if match_result == nil
-        
-          m = Match.new({    duration: match_result["duration"],
-                             game_mode: match_result["game_mode"],
-                             radiant_win: match_result["radiant_win"],
-                             match_seq_num: match_result["match_seq_num"],
-                             start_time: match_result["start_time"],
-                             lobby_type: match_result["lobby_type"],
-                             tower_status_radiant: match_result["tower_status_radiant"],
-                             tower_status_dire: match_result["tower_status_dire"],
-                             barracks_status_radiant: match_result["barracks_status_radiant"],
-                             barracks_status_dire: match_result["barracks_status_dire"],
-                             cluster: match_result["cluster"],
-                             first_blood_time: match_result["first_blood_time"],
-                             human_players: match_result["human_players"],
-                             positive_votes: match_result["positive_votes"],
-                             negative_votes: match_result["negative_votes"],
-                             league_id: match_result["leagueid"]
+          if match_result == nil
+            logger.warn "match_result is empty."
+          end
+          
+          logger.info "Currently processing match #{match_id}"
+          
+          m = Match.new({ duration: match_result["duration"],
+                          game_mode: match_result["game_mode"],
+                          radiant_win: match_result["radiant_win"],
+                          match_seq_num: match_result["match_seq_num"],
+                          start_time: match_result["start_time"],
+                          lobby_type: match_result["lobby_type"],
+                          tower_status_radiant: match_result["tower_status_radiant"],
+                          tower_status_dire: match_result["tower_status_dire"],
+                          barracks_status_radiant: match_result["barracks_status_radiant"],
+                          barracks_status_dire: match_result["barracks_status_dire"],
+                          cluster: match_result["cluster"],
+                          first_blood_time: match_result["first_blood_time"],
+                          human_players: match_result["human_players"],
+                          positive_votes: match_result["positive_votes"],
+                          negative_votes: match_result["negative_votes"],
+                          league_id: match_result["leagueid"]
                               })
-          m.id = match_id      
-          m.save
+          m.id = match_id 
+          m.save!
+          
+          logger.debug "Created entry for match."
       
           if match_result["picks_bans"]
+            logger.debug "Processing picks and bans."
             match_result["picks_bans"].each do |selection|
               PickBan.create({
                 is_pick: selection["is_pick"],
@@ -126,6 +144,7 @@ class GetTournamentMatches
             pm.save
         
             if player["ability_upgrades"]
+              logger.debug "Processing ability upgrades."
               player["ability_upgrades"].each do |ability_upgrade|
                 AbilityUpgrade.create({
                   ability_id: ability_upgrade["ability"],
@@ -137,6 +156,7 @@ class GetTournamentMatches
             end
         
             if player["additional_units"]
+              logger.debug "Processing additional units."
               player["additional_units"].each do |additional_unit|
                 AdditionalUnit.create({
                   unitname: additional_unit["unitname"],
@@ -153,14 +173,19 @@ class GetTournamentMatches
             end
           end
         end
-      
-        break if output["result"]["results_remaining"] == 0
+        
+        logger.info "Matches remaining: #{output["result"]["results_remaining"]}"
+        
+        if output["result"]["results_remaining"] == 0
+          logger.info "Finished processing league #{league.id} - #{league.name}"
+          break
+        end
         
         last_match_id = output["result"]["matches"][-1]["match_id"]
         # last_match = league.matches.order("id ASC").first
         # break unless last_match
         # last_match_id = last_match.id
-      
+        
         url = "https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?key=#{ENV['STEAM_KEY']}&league_id=#{league.id}&start_at_match_id=#{last_match_id}"
         content = open(url).read
         output = JSON.parse(content)

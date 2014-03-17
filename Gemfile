@@ -68,4 +68,4 @@ group :production do
 end
 
 # Rails CMS Engine
-gem 'comfortable_mexican_sofa', '~> 1.8.0'
+# gem 'comfortable_mexican_sofa', '~> 1.8.0'

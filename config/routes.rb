@@ -18,9 +18,4 @@ DotaNexus::Application.routes.draw do
   
   mount ResqueWeb::Engine => "/resque_web"
   
-  ComfortableMexicanSofa::Routing.admin(:path => '/cms-admin')
-  
-  # Make sure this routeset is defined last
-  ComfortableMexicanSofa::Routing.content(:path => '/', :sitemap => false)
-  
 end

@@ -28,7 +28,7 @@ class Match < ActiveRecord::Base
                   :start_time, :lobby_type, :tower_status_radiant,
                   :tower_status_dire, :barracks_status_radiant,
                   :barracks_status_dire, :cluster, :first_blood_time,
-                  :human_players, :positive_votes, :negative_votes, :leagueid
+                  :human_players, :positive_votes, :negative_votes, :league_id
   
   has_many :player_matches, dependent: :destroy
   has_many :players, through: :player_matches, source: :user

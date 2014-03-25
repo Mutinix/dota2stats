@@ -20,13 +20,14 @@ class GetTournamentMatches
         end
       end
       
+      logger.info "Currently processing league #{league.id} - #{league.name}"
+      
       if output == nil
         logger.warn "Output is nil."
         logger.info "Finished processing league #{league.id} - #{league.name}"
         next
       end
       
-      logger.info "Currently processing league #{league.id} - #{league.name}"
       logger.info "Total matches: #{output['result']['total_results']}"
       
       while true
@@ -40,9 +41,9 @@ class GetTournamentMatches
           match_id = match["match_id"]
           mh = Match.find_by_id(match_id)
           if mh != nil
-            logger.info "Match #{match_id} already exists."
+            logger.debug "Match #{match_id} already exists."
             if mh.league_id != league.id
-              logger.info "league_id updated from nil to #{league.id}" unless mh.league_id
+              logger.debug "league_id updated from nil to #{league.id}" unless mh.league_id
               mh.league_id = league.id
               mh.save
             end

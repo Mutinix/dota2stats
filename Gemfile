@@ -31,21 +31,6 @@ gem 'redis'
 gem 'resque'
 gem 'resque-web', require: 'resque_web'
 
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# To use debugger
-# gem 'debugger'
-
 group :development, :test do
   gem 'sqlite3'
   gem 'rspec-rails'
@@ -70,3 +55,6 @@ end
 
 # Rails CMS Engine
 # gem 'comfortable_mexican_sofa', '~> 1.8.0'
+
+# Pagination
+gem 'kaminari'

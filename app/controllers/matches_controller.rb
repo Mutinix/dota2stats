@@ -10,7 +10,7 @@ class MatchesController < ApplicationController
   
   def index
     @league = League.find_by_id(params[:league_id])
-    @league_matches = @league.matches
+    @league_matches = (@league.matches).page(params[:page])
   end
   
 end

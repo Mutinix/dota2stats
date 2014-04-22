@@ -1,5 +1,6 @@
-<h2 class="league-name"><%= @league.localized_name %></h2>
+<h2 class="league-name"><%= @league.name %></h2>
 <br>
+<%= paginate @league_matches %>
 <table id="overview">
   <thead>
     <tr>
